@@ -1,11 +1,11 @@
 h1 Alla Fandoms
 
 ol
-  - albums.each do |album|
+  - fandoms.each do |fandoms|
     li 
-      a href="doors/#{album['AlbumId']}" #{album["Title"]}
-      a href="albums/#{album['AlbumId']}/edit" Uppdatera
-      form method="post" action="albums/#{album['AlbumId']}/delete"
+      a href="doors/#{fandom['id']}" #{fandom["name"]}
+      a href="doors/#{fandom['id']}/edit" Uppdatera
+      form method="post" action="doors/#{fandom['id']}/delete"
         input type="submit" value="Delete"
       
             
