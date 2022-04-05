@@ -17,9 +17,10 @@ get("/fandoms") do
 end
 
 get("/fandoms/:id") do
+    
     id = params[:id].to_i
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash=true
-    result = db.execute("SELECT * FROM fandom")
+    result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).to_s
 
 end

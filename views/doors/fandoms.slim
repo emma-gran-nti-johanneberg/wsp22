@@ -3,7 +3,7 @@ h1 Alla Fandoms
 ol
   - fandoms.each do |fandom|
     li 
-      a href="fandoms/#{fandom['id']}" #{fandom["name"]}
+      a href="fandoms/#{fandom['FandomId']}" #{fandom["name"]}
       a href="fandoms/#{fandom['id']}/edit" Uppdatera
       form method="post" action="doors/#{fandom['id']}/delete"
         input type="submit" value="Delete"
