@@ -22,5 +22,6 @@ get("/fandoms/:id") do
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash=true
     result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).to_s
+    slim(:"doors/show",locals:{result:result,result2:result2})
 
 end
