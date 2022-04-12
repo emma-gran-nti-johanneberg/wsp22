@@ -1,8 +1,10 @@
-h3 Finns det en fandomo som inte finns med?
+h3 Känner du till en fandomo som inte finns med?
 p Om så skriv i nedan så skapas en dörr till en ny värld
 
-form action="/doors/new" method="post"
-    input type="text" name="title" placeholder="Vad heter fandomen"
-    input type="text" name="author" placeholder="Författare"
-    input type="text" name="short_version_title" placeholder="Förkortning"/
+form action="/fandoms/new" method="post"
+    input type="text" name="Name" placeholder="Vad heter fandomen"
+    input type="text" name="FandomId" placeholder="Fandomens Id"
+    input type="text" name="Author" placeholder="Författare"
+    input type="text" name="CreatorId" placeholder="Författar Id"
+    input type="text" name="Short_name" placeholder="Förkortning"/
     input type="submit" value="Skapa Fandom"

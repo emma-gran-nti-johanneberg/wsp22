@@ -16,15 +16,30 @@ get("/fandoms") do
 
 end
 
+get ("/fandoms/new") do
+    slim(:"doors/new")
+end
+
+post ("/fandoms/new") do
+    Name=[:Name]
+    FandomId=[:FandomId]
+    Author=[:Author]
+    CreatorId=[:CreatorId]
+    Short_name=[:Short_name]
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.execute("INSERT INTO fandom (Name, FandomId, Short_name) VALUES (?,?,?)", Name, FandomId, Short_name)
+    db.execute("INSERT INTO creator (Author, CreatorId) VALUES (?,?)", Author, CreatorId)
+    redirect("/fandoms")
+end
 
 
 post ('/fandoms/:id/update') do
     id = params[:id]
-    fandom_name=params[:name]
-    creator_name = params[:creator]
+    Name=params[:Name]
+    Author = params[:Author]
     db = SQLite3::Database.new("db/chinook-crud.db")
-    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", fandom_name, id)
-    db.execute("UPDATE creator SET Name=? WHERE CreatorId=?", creator_name, id)
+    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Name, id)
+    db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
     redirect('/fandoms')
 end
 
