@@ -17,18 +17,20 @@ get("/fandoms") do
 end
 
 
+
 post ('/fandoms/:id/update') do
-    title = params[:title]
-    creator = params[:creator]
+    id = params[:id]
+    fandom_name=params[:name]
+    creator_name = params[:creator]
     db = SQLite3::Database.new("db/chinook-crud.db")
-    db.execute("UPDATE fandom SET Name=?", title)
-    db.execute("UPDATE creator SET Name=?", creator)
+    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", fandom_name, id)
+    db.execute("UPDATE creator SET Name=? WHERE CreatorId=?", creator_name, id)
     redirect('/fandoms')
 end
 
 
 get ('/fandoms/:id/edit') do
-    
+
     id = params[:id].to_i
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash = true

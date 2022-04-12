@@ -1,6 +1,6 @@
 form action="/fandoms/#{result['FandomId']}/update" method="post"
-    input type="text" name="Fandom name" value="#{result['Name']}"
-    input type="text" name="Creators name" value="#{result2['Name']}"
+    input type="text" name="fandom_name" value="#{result['Name']}"
+    input type="text" name="creators_name" value="#{result2['Name']}"
     input type="hidden" name="fandomId" value="#{result['FandomId']}"
     input type="hidden" name="creatorId" value="#{result2['CreatorId']}"/
     input type="submit" value="Edit it!"
