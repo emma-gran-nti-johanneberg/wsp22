@@ -26,11 +26,18 @@ post ("/fandoms/new") do
     Author=[:Author]
     CreatorId=[:CreatorId]
     Short_name=[:Short_name]
-    #p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
+    p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
     db = SQLite3::Database.new("db/fandoms.db")
     db.execute("INSERT INTO fandom (Name, FandomId, Short_name) VALUES (?,?,?)", Name, FandomId, Short_name)
     db.execute("INSERT INTO creator (Author, CreatorId) VALUES (?,?)", Author, CreatorId)
     redirect("/fandoms")
+end
+
+post ('/fandoms/:id/delete') do
+    id=params[:id].to_i
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.execute("DELETE FROM fandom WHERE FandomId=?", id)
+    redirect('/fandoms')
 end
 
 
