@@ -37,16 +37,16 @@ post ('/fandoms/:id/delete') do
     id=params[:id].to_i
     db = SQLite3::Database.new("db/fandoms.db")
     db.execute("DELETE FROM fandom WHERE FandomId=?", id)
-    redirect('/fandoms')
+    slim(:fandoms)
 end
 
 
 post ('/fandoms/:id/update') do
     id = params[:id]
-    Name=params[:Name]
+    Fandom_name=params[:Fandom_name]
     Author = params[:Author]
     db = SQLite3::Database.new("db/chinook-crud.db")
-    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Name, id)
+    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Fandom_name, id)
     db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
     redirect('/fandoms')
 end
