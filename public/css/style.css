@@ -3,6 +3,18 @@ a {
     margin: 2rem;
 }
 
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .error{
     color: red;
+}
+
+header{
+    background-color: rgb(182, 255, 231);
+    display: flex;
+    justify-content: center;
 }

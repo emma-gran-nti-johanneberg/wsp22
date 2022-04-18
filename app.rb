@@ -3,6 +3,8 @@ require 'slim'
 require 'sqlite3'
 require 'bcrypt'
 
+enable :sessions
+
 get("/") do
     slim(:index)
 end
@@ -21,9 +23,15 @@ get ("/register") do
     slim(:register)
 end
 
-get ("/Error_not_same") do
-    slim(:"doors/error_not_same")
+
+get ("/error_not_same") do
+    slim(:"errors/error_not_same")
 end
+
+get ("/error_password") do
+    slim(:"errors/error_wrong_password")
+end
+
 
 post ("/users/new") do
     username=params[:username]
@@ -38,7 +46,7 @@ post ("/users/new") do
         redirect("/register")
     else
         # Om det inte är samma och det blir fel
-        redirect("/errors/Error_not_same")
+        redirect("/error_not_same")
     end
 end
 
@@ -57,14 +65,16 @@ post ("/login") do
     id = result["UserId"]
 
     if BCrypt::Password.new(pwdigest) == password
+        session[:id] = id
         redirect("/fandoms")
     else
         redirect("error_password")
     end
 end
 
-get ("/error_password") do
-    slim(:"errors/error_wrong_password")
+get ("/my_site") do
+    id = session[:id].to_i
+    
 end
 
 get ("/fandoms/new") do
@@ -96,7 +106,7 @@ post ('/fandoms/:id/update') do
     id = params[:id]
     Fandom_name = params[:Fandom_name]
     Author = params[:Author]
-    db = SQLite3::Database.new("db/chinook-crud.db")
+    db = SQLite3::Database.new("db/fandoms.db")
     db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Fandom_name, id)
     db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
     redirect('/fandoms')
