@@ -38,8 +38,33 @@ post ("/users/new") do
         redirect("/register")
     else
         # Om det inte är samma och det blir fel
-        redirect("/Error_not_same")
+        redirect("/errors/Error_not_same")
     end
+end
+
+get ("/login") do 
+    slim(:login)
+end
+
+post ("/login") do
+    username=params[:username]
+    password=params[:password]
+
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.results_as_hash = true
+    result = db.execute("SELECT * FROM user WHERE Username = ?", username).first
+    pwdigest = result["Password"]
+    id = result["UserId"]
+
+    if BCrypt::Password.new(pwdigest) == password
+        redirect("/fandoms")
+    else
+        redirect("error_password")
+    end
+end
+
+get ("/error_password") do
+    slim(:"errors/error_wrong_password")
 end
 
 get ("/fandoms/new") do
