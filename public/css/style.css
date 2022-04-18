@@ -18,3 +18,8 @@ header{
     display: flex;
     justify-content: center;
 }
+
+input{
+    display: flexbox;
+    margin: 1rem;
+}
