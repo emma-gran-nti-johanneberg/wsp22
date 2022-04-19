@@ -118,13 +118,17 @@ end
 
 
 post ('/fandoms/:id/update') do
-    id = params[:id]
-    Fandom_name = params[:Fandom_name]
-    Author = params[:Author]
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Fandom_name, id)
-    db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
-    redirect('/fandoms')
+    if session[:id] != []
+        id = params[:id]
+        Fandom_name = params[:Fandom_name]
+        Author = params[:Author]
+        db = SQLite3::Database.new("db/fandoms.db")
+        db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Fandom_name, id)
+        db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
+        redirect('/fandoms')
+    else 
+        redirect("/not_inlogg")
+    end
 end
 
 
