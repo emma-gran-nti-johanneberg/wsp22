@@ -66,7 +66,7 @@ post ("/login") do
 
     if BCrypt::Password.new(pwdigest) == password
         session[:id] = id
-        redirect("/fandoms")
+        redirect("/my_site")
     else
         redirect("error_password")
     end
@@ -74,7 +74,10 @@ end
 
 get ("/my_site") do
     id = session[:id].to_i
-    
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.results_as_hash = true
+    result = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
+    slim(:"/users/my_site", locals:{result:result})
 end
 
 get ("/fandoms/new") do
