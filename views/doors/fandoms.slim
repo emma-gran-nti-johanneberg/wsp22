@@ -5,6 +5,7 @@ ol
     li 
       a href="fandoms/#{fandom['FandomId']}" #{fandom["Name"]}
       a href="fandoms/#{fandom['FandomId']}/edit" Uppdatera
+      a href="fandoms/#{fandom['FandomId']}/join" Gå med #{fandom['Short_name']}
       form method="post" action="fandoms/#{fandom['FandomId']}/delete"
         input type="submit" value="Delete"
       

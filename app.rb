@@ -131,15 +131,31 @@ post ('/fandoms/:id/update') do
     end
 end
 
+get ('fandoms/:id/join') do 
+    if session[:id] != []
+        FandomId = params[:FandomId].to_i
+        UserId = session[:id].to_i
+        db = SQLite3::Database.new("db/fandoms.db")
+        db.results_as_hash = true
+        db.execute("INSERT INTO user_fandom_rel (UserId, FandomId) VALUES (?, ?)", UserId, FandomId)
+        slim(:"/doors/fandoms")
+    else
+        slim(:"/users/not_inlogg")
+    end
+
+end
 
 get ('/fandoms/:id/edit') do
-
-    id = params[:id].to_i
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).first
-    result2 = db.execute("SELECT * FROM creator WHERE CreatorId=?", id).first
-    slim(:"/doors/edit", locals:{result:result,result2:result2})
+    if session[:id] != []
+        id = params[:id].to_i
+        db = SQLite3::Database.new("db/fandoms.db")
+        db.results_as_hash = true
+        result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).first
+        result2 = db.execute("SELECT * FROM creator WHERE CreatorId=?", id).first
+        slim(:"/doors/edit", locals:{result:result,result2:result2})
+    else
+        slim(:"/users/not_inlogg")
+    end
 
 end
 
