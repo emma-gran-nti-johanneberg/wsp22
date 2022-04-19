@@ -8,15 +8,21 @@ html lang="en"
         link rel="stylesheet" href="/css/style.css"/
     body 
 
-    header class="header"
-        h1 In Vision
+        header class="header"
+            h1 In Vision
         
-    nav 
-        a href="/my_site" Min sida
-        a href="/" Start sida
-        a href="/fandoms" Världar 
-        a href="/fandoms/new" Skapa värld 
-        a href="/login"  Logga in
-        a href="/register" Registerering
+        nav 
 
-== yield 
+            -if session[:id] == []
+                a href="/" Start sida
+                a href="/fandoms" Världar 
+                a href="/login"  Logga in
+                a href="/register" Registerering
+            -else
+                    a href="/my_site" Min sida
+                    a href="/" Start sida
+                    a href="/fandoms" Världar 
+                    a href="/fandoms/new" Skapa värld    
+                    a href="/logga_ut" Logga ut
+
+        == yield 

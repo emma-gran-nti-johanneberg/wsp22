@@ -72,6 +72,15 @@ post ("/login") do
     end
 end
 
+get ("/logga_ut") do
+    session[:id] = []
+    slim(:"/users/logga_ut")
+end
+
+get ("/not_inlogg") do 
+    slim(:"/users/not_inlogg")
+end
+
 get ("/my_site") do
     id = session[:id].to_i
     db = SQLite3::Database.new("db/fandoms.db")
@@ -97,10 +106,14 @@ post ("/fandoms/new") do
 end
 
 post ('/fandoms/:id/delete') do
-    id = params[:id].to_i
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.execute("DELETE FROM fandom WHERE FandomId=?", id)
-    redirect("/fandoms")
+    if session[:id] != []
+        id = params[:id].to_i
+        db = SQLite3::Database.new("db/fandoms.db")
+        db.execute("DELETE FROM fandom WHERE FandomId=?", id)
+        redirect("/fandoms")
+    else
+        redirect("/not_inlogg")
+    end
 end
 
 
