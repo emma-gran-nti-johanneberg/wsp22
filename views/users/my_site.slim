@@ -1,7 +1,11 @@
-h2 Välkommen #{element ['Username']}
+h2 Välkommen #{fandom1['Username']}
 
 h3 Detta är de fandoms du är medlem i just nu
 
 ul 
-    - user_fandom_rel.each do |element|
-        li #{element["Name"]}
+    - fandom2.each do |fandom|
+        li #{fandom["Name"]}
+        a href="fandoms/#{fandom['FandomId']}" Stick till vår (#{fandom["Short_name"]}) hemsida 
+        form method="post" action="my_list/#{fandom['FandomId']}/delete"
+            input type="hidden" name="RelationId" value="#{fandom['RelationId']}"
+            input type="submit" value="Delete"

@@ -83,11 +83,23 @@ end
 
 get ("/my_site") do
     id = session[:id].to_i
+    p id
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash = true
     get_id = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
-    get_fandoms = db.execute("SELECT fandom.* FROM user_fandom_rel INNER JOIN fandom ON user_fandom_rel.FandomId=fandom.FandomId WHERE UserId=?", id)
-    slim(:"/users/my_site", locals:{get_id:element, get_fandoms:element})
+    get_fandoms = my_list(id)
+    slim(:"/users/my_site", locals:{fandom1:get_id, fandom2:get_fandoms})
+end
+
+def my_list(id)
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.results_as_hash = true
+    get_fandoms = db.execute("SELECT *
+        FROM user_fandom_rel 
+        INNER JOIN fandom ON user_fandom_rel.FandomId=fandom.FandomId
+        WHERE UserId=?", id)
+    p get_fandoms
+    return get_fandoms
 end
 
 get ("/fandoms/new") do
@@ -168,4 +180,12 @@ get("/fandoms/:id") do
     result2 = db.execute("SELECT * FROM creator WHERE CreatorId=?", id).first
     slim(:"doors/show",locals:{result:result,result2:result2})
 
+end
+
+post ("/my_list/:id/delete") do
+    UserId = session[:id].to_i
+    RelationId = params[:RelationId]
+    db = SQLite3::Database.new("db/fandoms.db")
+    db.execute("DELETE FROM user_fandom_rel WHERE RelationId=?", RelationId)
+    redirect("/my_site")
 end
