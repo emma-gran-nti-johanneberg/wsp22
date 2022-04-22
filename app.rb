@@ -83,7 +83,7 @@ end
 
 get ("/my_site") do
     id = session[:id].to_i
-    p id
+    #p id
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash = true
     get_id = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
@@ -98,7 +98,7 @@ def my_list(id)
         FROM user_fandom_rel 
         INNER JOIN fandom ON user_fandom_rel.FandomId=fandom.FandomId
         WHERE UserId=?", id)
-    p get_fandoms
+    #p get_fandoms
     return get_fandoms
 end
 
