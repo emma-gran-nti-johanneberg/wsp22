@@ -19,6 +19,10 @@ header{
     justify-content: center;
 }
 
+form{
+    display: inline;
+}
+
 input{
     display: flexbox;
     margin: 1rem;
