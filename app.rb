@@ -85,8 +85,9 @@ get ("/my_site") do
     id = session[:id].to_i
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash = true
-    result = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
-    slim(:"/users/my_site", locals:{result:result})
+    get_id = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
+    get_fandoms = db.execute("SELECT fandom.* FROM user_fandom_rel INNER JOIN fandom ON user_fandom_rel.FandomId=fandom.FandomId WHERE UserId=?", id)
+    slim(:"/users/my_site", locals:{get_id:element, get_fandoms:element})
 end
 
 get ("/fandoms/new") do
@@ -131,18 +132,17 @@ post ('/fandoms/:id/update') do
     end
 end
 
-get ('fandoms/:id/join') do 
+post ('/fandoms/:id/join') do 
     if session[:id] != []
-        FandomId = params[:FandomId].to_i
+        id = params[:id].to_i
         UserId = session[:id].to_i
         db = SQLite3::Database.new("db/fandoms.db")
         db.results_as_hash = true
-        db.execute("INSERT INTO user_fandom_rel (UserId, FandomId) VALUES (?, ?)", UserId, FandomId)
-        slim(:"/doors/fandoms")
+        result2 = db.execute("INSERT INTO user_fandom_rel (UserId, FandomId) VALUES (?, ?)", UserId, id)
+        redirect("/fandoms")
     else
-        slim(:"/users/not_inlogg")
+        redirect("/not_inlogg")
     end
-
 end
 
 get ('/fandoms/:id/edit') do

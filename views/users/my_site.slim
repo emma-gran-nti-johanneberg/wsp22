@@ -1,1 +1,7 @@
-h2 Välkommen #{result['Username']}
+h2 Välkommen #{element ['Username']}
+
+h3 Detta är de fandoms du är medlem i just nu
+
+ul 
+    - user_fandom_rel.each do |element|
+        li #{element["Name"]}
