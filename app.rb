@@ -2,6 +2,7 @@ require 'sinatra'
 require 'slim'
 require 'sqlite3'
 require 'bcrypt'
+require_relative './model.rb'
 
 enable :sessions
 
@@ -10,10 +11,7 @@ get("/") do
 end
 
 get("/fandoms") do
-
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    result = db.execute("SELECT * FROM fandom")
+    result = fandoms
     #p result
     slim(:"doors/fandoms",locals:{fandom:result})
 
@@ -40,14 +38,13 @@ post ("/users/new") do
 
     if (password==password_confirm)
         # Om de är samma och lyckas
-        password_digest = BCrypt::Password.create(password)
-        db = SQLite3::Database.new("db/fandoms.db")
-        db.execute("INSERT INTO user(Username, Password) VALUES(?,?)", username, password_digest)
+        result = password_confirming(username, password, password_confirm)
         redirect("/register")
     else
         # Om det inte är samma och det blir fel
         redirect("/error_not_same")
     end
+
 end
 
 get ("/login") do 
@@ -58,9 +55,7 @@ post ("/login") do
     username=params[:username]
     password=params[:password]
 
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    result = db.execute("SELECT * FROM user WHERE Username = ?", username).first
+    result = login(username, password)
     pwdigest = result["Password"]
     id = result["UserId"]
 
@@ -83,24 +78,23 @@ end
 
 get ("/my_site") do
     id = session[:id].to_i
-    #p id
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    get_id = db.execute("SELECT * FROM user WHERE UserId = ?", id).first
+    #p id   
+    get_id = my_site(id)
     get_fandoms = my_list(id)
     slim(:"/users/my_site", locals:{fandom1:get_id, fandom2:get_fandoms})
 end
 
-def my_list(id)
+
+post ("/user_access") do
+    id = session[:id].to_i
+    user_access=params[:user_access]
     db = SQLite3::Database.new("db/fandoms.db")
     db.results_as_hash = true
-    get_fandoms = db.execute("SELECT *
-        FROM user_fandom_rel 
-        INNER JOIN fandom ON user_fandom_rel.FandomId=fandom.FandomId
-        WHERE UserId=?", id)
-    #p get_fandoms
-    return get_fandoms
+    hej = db.execute("SELECT AccessID FROM access WHERE AccessID IN (SELECT access FROM user WHERE UserId = ?)", id )
+    
+    redirect("/my_site")
 end
+
 
 get ("/fandoms/new") do
     slim(:"doors/new")
@@ -112,17 +106,14 @@ post ("/fandoms/new") do
     Author=params[:Author]
     Short_name=params[:Short_name]
     #p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.execute("INSERT INTO fandom (Name, FandomId, Short_name) VALUES (?,?,?)", Name, Id, Short_name)
-    db.execute("INSERT INTO creator (Author, CreatorId) VALUES (?,?)", Author, Id)
+    result = fandoms_new(Name, Id, Author, Short_name)
     redirect("/fandoms")
 end
 
 post ('/fandoms/:id/delete') do
     if session[:id] != []
         id = params[:id].to_i
-        db = SQLite3::Database.new("db/fandoms.db")
-        db.execute("DELETE FROM fandom WHERE FandomId=?", id)
+        result = fandoms_delete(id)
         redirect("/fandoms")
     else
         redirect("/not_inlogg")
@@ -135,9 +126,7 @@ post ('/fandoms/:id/update') do
         id = params[:id]
         Fandom_name = params[:Fandom_name]
         Author = params[:Author]
-        db = SQLite3::Database.new("db/fandoms.db")
-        db.execute("UPDATE fandom SET Name=? WHERE FandomId=?", Fandom_name, id)
-        db.execute("UPDATE creator SET Author=? WHERE CreatorId=?", Author, id)
+        result = fandoms_update(id, Fandom_name, Author,)
         redirect('/fandoms')
     else 
         redirect("/not_inlogg")
@@ -148,9 +137,7 @@ post ('/fandoms/:id/join') do
     if session[:id] != []
         id = params[:id].to_i
         UserId = session[:id].to_i
-        db = SQLite3::Database.new("db/fandoms.db")
-        db.results_as_hash = true
-        result2 = db.execute("INSERT INTO user_fandom_rel (UserId, FandomId) VALUES (?, ?)", UserId, id)
+        result = fandoms_join(id, UserId)
         redirect("/fandoms")
     else
         redirect("/not_inlogg")
@@ -160,32 +147,22 @@ end
 get ('/fandoms/:id/edit') do
     if session[:id] != []
         id = params[:id].to_i
-        db = SQLite3::Database.new("db/fandoms.db")
-        db.results_as_hash = true
-        result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).first
-        result2 = db.execute("SELECT * FROM creator WHERE CreatorId=?", id).first
-        slim(:"/doors/edit", locals:{result:result,result2:result2})
+        result = fandoms_edit(id)
+        slim(:"/doors/edit", locals:{result:result})
     else
         slim(:"/users/not_inlogg")
     end
-
 end
 
 get("/fandoms/:id") do
-    
     id = params[:id].to_i
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    result = db.execute("SELECT * FROM fandom WHERE FandomId=?", id).first
-    result2 = db.execute("SELECT * FROM creator WHERE CreatorId=?", id).first
-    slim(:"doors/show",locals:{result:result,result2:result2})
-
+    result = fandoms_id(id)
+    slim(:"doors/show",locals:{result:result})
 end
 
 post ("/my_list/:id/delete") do
     UserId = session[:id].to_i
     RelationId = params[:RelationId]
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.execute("DELETE FROM user_fandom_rel WHERE RelationId=?", RelationId)
+    result = my_list_delete(UserId, RelationId)
     redirect("/my_site")
 end
