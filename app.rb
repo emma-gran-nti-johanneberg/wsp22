@@ -107,6 +107,8 @@ post ("/fandoms/new") do
     Short_name=params[:Short_name]
     #p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
     result = fandoms_new(Name, Id, Author, Short_name)
+    p "här är result"
+    p result
     redirect("/fandoms")
 end
 
@@ -124,10 +126,21 @@ end
 post ('/fandoms/:id/update') do
     if session[:id] != []
         id = params[:id]
+        #p "detta är id"
+        #p id
         Fandom_name = params[:Fandom_name]
+        #p "detta är Fandom name"
+        #p Fandom_name
         Author = params[:Author]
-        result = fandoms_update(id, Fandom_name, Author,)
-        redirect('/fandoms')
+        #p "detta är author"
+        #p Author
+        result = fandoms_update(id, Fandom_name)
+        result2 = creator_update(id, Author)
+        #p "här är result"
+        #p result
+        #p "det här är result2"
+        #p result2
+        redirect('/fandoms/:id/edit')
     else 
         redirect("/not_inlogg")
     end
@@ -147,8 +160,9 @@ end
 get ('/fandoms/:id/edit') do
     if session[:id] != []
         id = params[:id].to_i
-        result = fandoms_edit(id)
-        slim(:"/doors/edit", locals:{result:result})
+        result = fandoms_edit_part1(id)
+        result2 = fandoms_edit_part2(id)
+        slim(:"/doors/edit", locals:{result:result, result2:result2})
     else
         slim(:"/users/not_inlogg")
     end
@@ -156,8 +170,9 @@ end
 
 get("/fandoms/:id") do
     id = params[:id].to_i
-    result = fandoms_id(id)
-    slim(:"doors/show",locals:{result:result})
+    result = fandoms_id_part1(id)
+    result2 = fandoms_id_part2(id)
+    slim(:"doors/show",locals:{result:result, result2:result2})
 end
 
 post ("/my_list/:id/delete") do
