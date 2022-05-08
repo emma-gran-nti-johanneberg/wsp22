@@ -6,6 +6,18 @@ require_relative './model.rb'
 
 enable :sessions
 
+@protected_routs = ["/edit", "/my_site", "/new"]
+
+before do 
+    if @protected_routs.include?(request.path_info)
+        if session[:id] != []
+            # Gör inget
+        else
+            redirect to ("/users/not_inlogg")
+        end
+    end
+end
+
 get("/") do
     slim(:index)
 end
