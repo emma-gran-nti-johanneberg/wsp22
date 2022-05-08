@@ -140,7 +140,7 @@ post ('/fandoms/:id/update') do
         #p result
         #p "det här är result2"
         #p result2
-        redirect('/fandoms/:id/edit')
+        redirect('/fandoms')
     else 
         redirect("/not_inlogg")
     end

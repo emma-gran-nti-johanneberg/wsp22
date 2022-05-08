@@ -1,4 +1,4 @@
-form action="/fandoms/#{result['FandomId']}/update" method="post"
+form action="/fandoms/#{params[:id]}/update" method="post"
     input type="text" name="Fandom_name" value="#{result['Name']}"
     input type="text" name="Author" value="#{result2['Author']}"
     input type="hidden" name="FandomId" value="#{result['FandomId']}"
