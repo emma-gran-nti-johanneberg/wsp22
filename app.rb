@@ -138,20 +138,10 @@ end
 post ('/fandoms/:id/update') do
     if session[:id] != []
         id = params[:id]
-        #p "detta är id"
-        #p id
         Fandom_name = params[:Fandom_name]
-        #p "detta är Fandom name"
-        #p Fandom_name
         Author = params[:Author]
-        #p "detta är author"
-        #p Author
         result = fandoms_update(id, Fandom_name)
         result2 = creator_update(id, Author)
-        #p "här är result"
-        #p result
-        #p "det här är result2"
-        #p result2
         redirect('/fandoms')
     else 
         redirect("/not_inlogg")
