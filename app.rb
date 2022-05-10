@@ -5,7 +5,7 @@ require 'bcrypt'
 require_relative './model.rb'
 
 enable :sessions
-
+=begin
 @protected_routs = ["/edit", "/my_site", "/new"]
 
 before do 
@@ -17,7 +17,7 @@ before do
         end
     end
 end
-
+=end
 get("/") do
     slim(:index)
 end
@@ -113,12 +113,12 @@ get ("/fandoms/new") do
 end
 
 post ("/fandoms/new") do
-    Name=params[:Name]
-    Id=params[:Id]
-    Author=params[:Author]
-    Short_name=params[:Short_name]
+    name=params[:name]
+    id=params[:id]
+    author=params[:author]
+    short_name=params[:short_name]
     #p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
-    result = fandoms_new(Name, Id, Author, Short_name)
+    result = fandoms_new(name, id, author, short_name)
     p "här är result"
     p result
     redirect("/fandoms")
@@ -138,10 +138,10 @@ end
 post ('/fandoms/:id/update') do
     if session[:id] != []
         id = params[:id]
-        Fandom_name = params[:Fandom_name]
-        Author = params[:Author]
-        result = fandoms_update(id, Fandom_name)
-        result2 = creator_update(id, Author)
+        fandom_name = params[:Fandom_name]
+        author = params[:Author]
+        result = fandoms_update(id, fandom_name)
+        result2 = creator_update(id, author)
         redirect('/fandoms')
     else 
         redirect("/not_inlogg")
@@ -178,8 +178,9 @@ get("/fandoms/:id") do
 end
 
 post ("/my_list/:id/delete") do
-    UserId = session[:id].to_i
-    RelationId = params[:RelationId]
-    result = my_list_delete(UserId, RelationId)
+    id = session[:id].to_i
+    relationid = params[:relationid]
+    result = my_list_delete(id, relationid)
+    p relationid
     redirect("/my_site")
 end

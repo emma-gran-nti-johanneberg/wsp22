@@ -104,6 +104,6 @@ end
 
 def my_list_delete(userid, relationid)
     db = get_db()
-    result = db.execute("DELETE FROM user_fandom_rel WHERE RelationId=?", relationId)
+    result = db.execute("DELETE FROM user_fandom_rel WHERE RelationId=?", relationid)
     return result
 end

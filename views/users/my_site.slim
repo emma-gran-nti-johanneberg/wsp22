@@ -14,7 +14,7 @@ ul
         li #{fandom["Name"]}
         a href="fandoms/#{fandom['FandomId']}" Stick till vår (#{fandom["Short_name"]}) hemsida 
         form method="post" action="my_list/#{fandom['FandomId']}/delete"
-            input type="hidden" name="RelationId" value="#{fandom['RelationId']}"
+            input type="hidden" name="relationid" value="#{fandom['RelationId']}"
             input type="submit" value="Delete"
 
             
