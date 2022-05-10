@@ -5,8 +5,8 @@ require 'bcrypt'
 require_relative './model.rb'
 
 enable :sessions
-=begin
-@protected_routs = ["/edit", "/my_site", "/new"]
+
+@protected_routs = ["/fandoms/:id/edit", "/my_site", "/fandoms/new"]
 
 before do 
     if @protected_routs.include?(request.path_info)
@@ -15,9 +15,11 @@ before do
         else
             redirect to ("/users/not_inlogg")
         end
+    else
+        #Visa
     end
 end
-=end
+
 get("/") do
     slim(:index)
 end
