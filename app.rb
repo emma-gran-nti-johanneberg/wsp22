@@ -181,6 +181,5 @@ post ("/my_list/:id/delete") do
     id = session[:id].to_i
     relationid = params[:relationid]
     result = my_list_delete(id, relationid)
-    p relationid
     redirect("/my_site")
 end
