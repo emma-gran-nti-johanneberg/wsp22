@@ -33,7 +33,6 @@ get ("/register") do
     slim(:register)
 end
 
-
 get ("/error_not_same") do
     slim(:"errors/error_not_same")
 end
@@ -43,7 +42,7 @@ get ("/error_password") do
 end
 
 
-post ("/users/new") do
+post ("/users") do
     username=params[:username]
     password=params[:password]
     password_confirm=params[:password_confirm]
@@ -112,7 +111,7 @@ get ("/fandoms/new") do
     slim(:"doors/new")
 end
 
-post ("/fandoms/new") do
+post ("/fandoms") do
     name=params[:name]
     id=params[:id]
     author=params[:author]
