@@ -45,12 +45,34 @@ module Model
         return get_fandoms
     end
 
-    def fandoms_new(name, id, author, short_name)
+    # Attempts to insert a new row in the fandom table
+    #
+    # @param [Hash] params form data
+    # @params [String] Name, The name of the fandom
+    # @params [String] Short_name, The short name of the fandom
+    #
+    # @return [Hash]
+    #   * result [String] the fandom name and short name
+    #   * result2 [String] the author name
+    def fandoms_new_part1(name, id, short_name)
         db = get_db()
-        result = db.execute("INSERT INTO fandom (Name, FandomId, Short_name) VALUES (?,?,?)", Name, Id, Short_name)
-        result2 = db.execute("INSERT INTO creator (Author, CreatorId) VALUES (?,?)", Author, Id)
-        return result, result2
+        result = db.execute("INSERT INTO fandom (Name, FandomId, Short_name) VALUES (?,?,?)", name, id, short_name)
+        return result
     end
+
+    # Attempts to insert a new row in the creator table
+    #
+    # @param [Hash] params form data
+    # @params [String] Author, The author of the fandom
+    #
+    # @return [Hash]
+    #   * result [String] the authors name and ID
+    def fandoms_new_part2(id, author)
+        db = get_db()
+        result =  db.execute("INSERT INTO creator (Author, CreatorId) VALUES (?,?)", author, id)
+        return result
+    end
+
 
     def fandoms_delete(id)
         db = get_db()

@@ -1,13 +1,9 @@
 h2 Välkommen #{fandom1['Username']}
 
-h3 Detta är de fandoms du är medlem i just nu
+h3 Detta är de fandoms du är medlemmar i
 
-label for="user_access" Vilken behörighet har du?
-select name="user_access"
-    option value="elev" Elev 
-    option value="perfekt" Perfekt
-    option value="techer" Lärare 
-    option value="rektor" Rektor
+a href="access" Din åtkomst
+
 
 ul 
     - fandom2.each do |fandom|

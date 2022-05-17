@@ -8,17 +8,30 @@ enable :sessions
 
 include Model # Wat dis?
 
-@protected_routs = ["/fandoms/:id/edit", "/my_site", "/fandoms/new"]
 
-before do 
+# Checks to see if the person should have access to this information
+before do
+    @protected_routs = ["/fandoms/:id/edit", "/my_site", "/fandoms/new"]
     if @protected_routs.include?(request.path_info)
         if session[:id] != []
-            # Gör inget
+            # Ska den visa hemsida
         else
-            redirect to ("/users/not_inlogg")
+            redirect to ("/not_inlogg")
         end
     else
         #Visa
+    end
+end
+
+# Checks to see if the person should have access to this information
+before do 
+    @access = ["/access"]
+    if @access.include?(request.path_info)
+        if [:access] == [4]
+            #Gör inget bara visa
+        else
+            redirect to ("/not_inlogg")
+        end
     end
 end
 
@@ -98,9 +111,11 @@ post ("/login") do
     result = login(username, password)
     pwdigest = result["Password"]
     id = result["UserId"]
+    access = result[access]
 
     if BCrypt::Password.new(pwdigest) == password
         session[:id] = id
+        session[:access] = access
         redirect("/my_site")
     else
         redirect("error_password")
@@ -123,14 +138,20 @@ end
 # Displays the logged in persons personal page
 get ("/my_site") do
     id = session[:id].to_i
+    access = session[:access]
     #p id   
     get_id = my_site(id)
     get_fandoms = my_list(id)
     slim(:"/users/my_site", locals:{fandom1:get_id, fandom2:get_fandoms})
 end
 
+# Displays the logged in persons access page
+get ("/access") do
+    id = session[:id].to_i
+    slim(:"/users/access")
+end
 
-# Choice what kind of acces a person will have
+# Choice what kind of access a person will have
 #
 # @param [Integer] id, The Id of the user
 # @param [Integer] user_access, The User_access of the user
@@ -141,7 +162,7 @@ post ("/user_access") do
     db.results_as_hash = true
     hej = db.execute("SELECT AccessID FROM access WHERE AccessID IN (SELECT access FROM user WHERE UserId = ?)", id )
     
-    redirect("/my_site")
+    redirect("/access")
 end
 
 
@@ -160,14 +181,13 @@ end
 #
 # @see Model#fandom_new
 post ("/fandoms") do
-    name=params[:name]
-    id=params[:id]
-    author=params[:author]
-    short_name=params[:short_name]
+    name=params[:Name]
+    id=params[:Id]
+    author=params[:Author]
+    short_name=params[:Short_name]
     #p "Vi fick in datan #{Name}, #{FandomId}, #{Author}, #{CreatorId} och #{Short_name}."
-    result = fandoms_new(name, id, author, short_name)
-    p "här är result"
-    p result
+    result = fandoms_new_part1(name, id, short_name)
+    result2 = fandom_name_part2(id, author)
     redirect("/fandoms")
 end
 
@@ -255,7 +275,7 @@ end
 
 # Deletes the fandom from my_list
 #
-# @param [Integer] :relationid, the ID of the fandom
+# @session [Integer] :relationid, the ID of the fandom
 #
 # @see Model#my_list_delete
 post ("/my_list/:id/delete") do
