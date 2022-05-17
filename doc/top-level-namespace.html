@@ -118,7 +118,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Display Landing Page.</p>
+<p>Displays Landing Page.</p>
 </div></span>
   
 </li>
@@ -189,7 +189,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Displays all the Fandoms.</p>
+</div></span>
   
 </li>
 
@@ -235,7 +237,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Displays the change form for fandom.</p>
+</div></span>
   
 </li>
 
@@ -257,7 +261,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Dispalys a create form.</p>
+</div></span>
   
 </li>
 
@@ -327,7 +333,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Displays the logged in persons personal page.</p>
+</div></span>
   
 </li>
 
@@ -445,7 +453,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Adds a user to fandom.</p>
+</div></span>
   
 </li>
 
@@ -515,7 +525,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes the fandom from my_list.</p>
+</div></span>
   
 </li>
 
@@ -537,7 +549,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Choice what kind of acces a person will have.</p>
+</div></span>
   
 </li>
 
@@ -588,7 +602,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Display Landing Page</p>
+<p>Displays Landing Page</p>
 
 
   </div>
@@ -647,12 +661,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 48</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/error_not_same</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;errors/error_not_same&quot;</span><span class='rparen'>)</span>
@@ -690,12 +704,12 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 54</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/error_password</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;errors/error_wrong_password&quot;</span><span class='rparen'>)</span>
@@ -714,21 +728,34 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Displays all the Fandoms</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-31
-32
 33
 34
 35
-36</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 33</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/fandoms</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_fandoms'>fandoms</span>
@@ -773,7 +800,7 @@
       
         &mdash;
         <div class='inline'>
-<p>the ID of the article</p>
+<p>the ID of the fandom</p>
 </div>
       
     </li>
@@ -798,15 +825,15 @@
       <pre class="lines">
 
 
-229
-230
-231
-232
-233
-234</pre>
+249
+250
+251
+252
+253
+254</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 229</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 249</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/fandoms/:id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -828,25 +855,47 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Displays the change form for fandom</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#fandoms_edit_part1</li>
+    
+      <li>Model#fandoms_edit_part2</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222</pre>
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 213</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 233</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/fandoms/:id/edit</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -872,18 +921,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Dispalys a create form</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-141
-142
-143</pre>
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 150</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/fandoms/new</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;doors/new&quot;</span><span class='rparen'>)</span>
@@ -921,13 +983,13 @@
       <pre class="lines">
 
 
-110
-111
 112
-113</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 112</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/logga_ut</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -966,12 +1028,12 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 84</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/login</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:login</span><span class='rparen'>)</span>
@@ -990,22 +1052,35 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Displays the logged in persons personal page</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-121
-122
-123
 124
 125
 126
-127</pre>
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 124</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/my_site</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1047,12 +1122,12 @@
       <pre class="lines">
 
 
-117
-118
-119</pre>
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 119</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/not_inlogg</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:&quot;/users/not_inlogg&quot;</span><span class='rparen'>)</span>
@@ -1090,12 +1165,12 @@
       <pre class="lines">
 
 
-40
-41
-42</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 42</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/register</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:register</span><span class='rparen'>)</span>
@@ -1208,20 +1283,20 @@
       <pre class="lines">
 
 
-153
-154
-155
-156
-157
-158
-159
-160
-161
 162
-163</pre>
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 162</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/fandoms</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
@@ -1294,18 +1369,18 @@
       <pre class="lines">
 
 
-170
-171
-172
-173
-174
-175
-176
-177
-178</pre>
+179
+180
+181
+182
+183
+184
+185
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 179</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/fandoms/:id/delete</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1330,25 +1405,47 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds a user to fandom</p>
+
+<p>params [Integer] :id, The ID of the fandom</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#fandoms_join</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211</pre>
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 216</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/fandoms/:id/join</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> 
     <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1454,21 +1551,21 @@
       <pre class="lines">
 
 
-189
-190
-191
-192
-193
-194
-195
-196
-197
 198
 199
-200</pre>
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 198</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/fandoms/:id/update</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1558,8 +1655,6 @@
       <pre class="lines">
 
 
-92
-93
 94
 95
 96
@@ -1572,10 +1667,12 @@
 103
 104
 105
-106</pre>
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 94</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/login</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_username'>username</span><span class='op'>=</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
@@ -1606,21 +1703,61 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes the fandom from my_list</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:relationid,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the ID of the fandom</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#my_list_delete</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-236
-237
-238
-239
-240
-241</pre>
+261
+262
+263
+264
+265
+266</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 261</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/my_list/:id/delete</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1642,24 +1779,73 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Choice what kind of acces a person will have</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>id,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The Id of the user</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user_access,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The User_access of the user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-130
-131
-132
-133
-134
-135
-136
 137
-138</pre>
+138
+139
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 137</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/user_access</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -1762,8 +1948,6 @@
       <pre class="lines">
 
 
-64
-65
 66
 67
 68
@@ -1776,10 +1960,12 @@
 75
 76
 77
-78</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 66</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/users</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_username'>username</span><span class='op'>=</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
@@ -1806,7 +1992,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 16 18:16:30 2022 by
+  Generated on Tue May 17 11:19:31 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.27 (ruby-3.0.2).
 </div>

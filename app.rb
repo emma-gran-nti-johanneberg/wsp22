@@ -22,12 +22,14 @@ before do
     end
 end
 
-# Display Landing Page
+# Displays Landing Page
 #
 get("/") do
     slim(:index)
 end
 
+# Displays all the Fandoms
+#
 get("/fandoms") do
     result = fandoms
     #p result
@@ -118,6 +120,7 @@ get ("/not_inlogg") do
     slim(:"/users/not_inlogg")
 end
 
+# Displays the logged in persons personal page
 get ("/my_site") do
     id = session[:id].to_i
     #p id   
@@ -127,6 +130,10 @@ get ("/my_site") do
 end
 
 
+# Choice what kind of acces a person will have
+#
+# @param [Integer] id, The Id of the user
+# @param [Integer] user_access, The User_access of the user
 post ("/user_access") do
     id = session[:id].to_i
     user_access=params[:user_access]
@@ -138,6 +145,8 @@ post ("/user_access") do
 end
 
 
+# Dispalys a create form 
+#
 get ("/fandoms/new") do
     slim(:"doors/new")
 end
@@ -199,6 +208,11 @@ post ('/fandoms/:id/update') do
     end
 end
 
+# Adds a user to fandom
+#
+# params [Integer] :id, The ID of the fandom
+#
+# @see Model#fandoms_join
 post ('/fandoms/:id/join') do 
     if session[:id] != []
         id = params[:id].to_i
@@ -210,6 +224,12 @@ post ('/fandoms/:id/join') do
     end
 end
 
+# Displays the change form for fandom
+#
+# @params [Integer] :id, The ID of the fandom
+#
+# @see Model#fandoms_edit_part1
+# @see Model#fandoms_edit_part2
 get ('/fandoms/:id/edit') do
     if session[:id] != []
         id = params[:id].to_i
@@ -223,7 +243,7 @@ end
 
 # Displays a single Article
 #
-# @param [Integer] :id, the ID of the article
+# @param [Integer] :id, the ID of the fandom
 # @see Model#fandoms_id_part1
 # @see Model#fandoms_id_part2
 get("/fandoms/:id") do
@@ -233,6 +253,11 @@ get("/fandoms/:id") do
     slim(:"doors/show",locals:{result:result, result2:result2})
 end
 
+# Deletes the fandom from my_list
+#
+# @param [Integer] :relationid, the ID of the fandom
+#
+# @see Model#my_list_delete
 post ("/my_list/:id/delete") do
     id = session[:id].to_i
     relationid = params[:relationid]
