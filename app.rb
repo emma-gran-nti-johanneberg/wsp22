@@ -68,6 +68,10 @@ get ("/error_password") do
     slim(:"errors/error_wrong_password")
 end
 
+# Display an error message
+get ("/error_empty") do
+    slim(:"/errors/empty_field")
+end
 
 # Attempts login and updates the session
 #
@@ -98,7 +102,7 @@ get ("/login") do
     slim(:login)
 end
 
-# Attempts login and updates the session
+# Attempts login and updates the session and redirekt to '/my_site'
 #
 # @param [String] username, The username
 # @param [String] password, The password
@@ -107,6 +111,14 @@ end
 post ("/login") do
     username=params[:username]
     password=params[:password]
+
+    if is_it_empty(username)
+        redirect('/error_empty')
+    end
+
+    if is_it_empty(password)
+        redirect('/error_empty')
+    end
 
     result = login(username, password)
     pwdigest = result["Password"]
@@ -151,17 +163,14 @@ get ("/access") do
     slim(:"/users/access")
 end
 
-# Choice what kind of access a person will have
+# Choice what kind of access a person will have and redirects to '/access'
 #
 # @param [Integer] id, The Id of the user
 # @param [Integer] user_access, The User_access of the user
 post ("/user_access") do
     id = session[:id].to_i
     user_access=params[:user_access]
-    db = SQLite3::Database.new("db/fandoms.db")
-    db.results_as_hash = true
-    hej = db.execute("SELECT AccessID FROM access WHERE AccessID IN (SELECT access FROM user WHERE UserId = ?)", id )
-    
+    result = access(id)    
     redirect("/access")
 end
 
@@ -228,7 +237,7 @@ post ('/fandoms/:id/update') do
     end
 end
 
-# Adds a user to fandom
+# Adds a user to fandom and redirect to '/fandoms'
 #
 # params [Integer] :id, The ID of the fandom
 #
@@ -273,7 +282,7 @@ get("/fandoms/:id") do
     slim(:"doors/show",locals:{result:result, result2:result2})
 end
 
-# Deletes the fandom from my_list
+# Deletes the fandom from my_list and redirects to '/my_site'
 #
 # @session [Integer] :relationid, the ID of the fandom
 #
